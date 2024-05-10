@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-std=c11 -Wpedantic -Wall -Wextra
+CFLAGS=-std=c11 -Wpedantic -Wall -Wextra -fsanitize=address
 LDLIBS=-lm
 RM=rm -f
 OBJ=testlistemots.o listemots.o
