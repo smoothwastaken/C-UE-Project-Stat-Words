@@ -16,6 +16,12 @@ extern void ajouterMotAvecOcc(tListeMots liste, char *mot, int nbOcc);
 
 extern void ajouterMot(tListeMots liste, char *mot);
 
+extern void ajouterOccurrenceMot(tListeMots liste, char *mot);
+
+extern void ecrireCsvListeMots(tListeMots liste, char *nomFichier);
+
 extern void ecrireListeMots(tListeMots liste, FILE *fich);
+
+extern void supprimerPetitsMots(tListeMots liste, int tailleMin);
 
 #endif /* LISTEMOTS_H */

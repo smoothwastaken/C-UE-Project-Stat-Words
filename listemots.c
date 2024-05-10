@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "listemots.h"
 
-#define TAILLE_MAX 50
+#define TAILLE_MAX 100
 
 // Mot d’un texte
 struct sMot {
@@ -124,6 +126,62 @@ void ajouterMot(tListeMots liste, char *mot) {
     ajouterMotAvecOcc(liste, mot, 1);
 }
 
+void ajouterOccurrenceMot(tListeMots liste, char *mot) {
+    // Ajoute une occurrence à un mot de la liste
+    struct sMot * courant = liste -> debut;
+
+    // Parcours la liste pour trouver le mot
+    while (courant != NULL) {
+        // Si le mot est trouvé, incrémente le nombre d'occurrences
+        if (strcmp(courant -> mot, mot) == 0) {
+            courant -> occurrences ++;
+            return;
+        }
+
+        // Passe au mot suivant
+        courant = courant -> suivant;
+    }
+
+    // Si le mot n'est pas trouvé, ajoute le mot à la liste
+    ajouterMot(liste, mot);
+
+    return;
+}
+
+void ecrireCsvListeMots(tListeMots liste, char *nomFichier) {
+    /* écrit dans un fichier texte, de nom nomFichier, tous les mots de la liste. Chaque mot doit être
+    écrit sur une ligne selon la syntaxe suivante : mot, taille, nombre-occurrences
+    Exemple :
+    chanteur, 8, 2
+    cuisinier, 9, 6 */
+
+    // Ouvre le fichier en écriture
+    FILE *fich = fopen(nomFichier, "w");
+    if (fich == NULL) {
+        return;
+    }
+
+    // Écrit chaque mot de la liste dans le fichier
+    struct sMot * courant = liste -> debut;
+
+    while (courant != NULL) {
+        // Écrit le mot, la taille et le nombre d'occurrences
+        for (int i = 0; i < courant -> taille; i ++) {
+            char *mot = courant -> mot;
+            fprintf(fich, "%c", mot[i]);
+        }
+        fprintf(fich, ", %d, %d\n", courant -> taille, courant -> occurrences);
+
+        // Passe au mot suivant
+        courant = courant -> suivant;
+    }
+
+    // Ferme le fichier
+    fclose(fich);
+
+    return;
+}
+
 void ecrireListeMots(tListeMots liste, FILE *fich) {
     // Écrit les mots de la liste dans un fichier
     struct sMot * courant = liste -> debut;
@@ -131,7 +189,13 @@ void ecrireListeMots(tListeMots liste, FILE *fich) {
     // Écrit chaque mot de la liste dans le fichier
     while (courant != NULL) {
         // Écrit le mot et un espace
-        fprintf(fich, "%s ", courant -> mot);
+        for (int i = 0; i < courant -> taille; i ++) {
+            char *mot = courant -> mot;
+            printf("%c", mot[i]);
+            fprintf(fich, "%c", mot[i]);
+        }
+        fprintf(fich, " ");
+        printf(" ");
         // Passe au mot suivant
         courant = courant -> suivant;
     }
@@ -140,4 +204,50 @@ void ecrireListeMots(tListeMots liste, FILE *fich) {
     fprintf(fich, "\n");
 
     return;
+}
+
+void supprimerPetitsMots(tListeMots liste, int tailleMin) {
+    /* supprime tous les mots de la liste dont la taille est strictement inférieure à tailleMin. Les mots
+    concernés doivent être retirés de la liste et la mémoire associée libérée. */
+
+    // Initialise les variables
+    struct sMot * courant = liste -> debut;
+    struct sMot * precedent = NULL;
+    struct sMot * suivant = NULL;
+
+    // Parcours la liste
+    while (courant != NULL) {
+        // Si le mot est plus petit que la taille minimale
+        if (courant -> taille < tailleMin) {
+            // Si le mot est le premier de la liste
+            if (precedent == NULL) {
+                // Supprime le mot de la liste
+                suivant = courant -> suivant;
+                motLiberer(courant);
+                liste -> debut = suivant;
+                courant = suivant;
+            // Si le mot est le dernier de la liste
+            } else if (courant -> suivant == NULL) {
+                // Supprime le mot de la liste
+                motLiberer(courant);
+                precedent -> suivant = NULL;
+                liste -> fin = precedent;
+                courant = NULL;
+            // Si le mot est au milieu de la liste
+            } else {
+                // Supprime le mot de la liste
+                suivant = courant -> suivant;
+                motLiberer(courant);
+                precedent -> suivant = suivant;
+                courant = suivant;
+            }
+            // Décrémente le nombre de mots de la liste
+            liste -> nbMots --;
+        // Si le mot est plus grand que la taille minimale
+        } else {
+            // Passe au mot suivant
+            precedent = courant;
+            courant = courant -> suivant;
+        }
+    }
 }

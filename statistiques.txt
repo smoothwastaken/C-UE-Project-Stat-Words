@@ -1,0 +1,7 @@
+Texte : ./textes/le-tour-du-monde-en-80-jours-iso-8859-1.txt
+Nombre de phrases : 3989
+Nombre de mots : 67949
+Nombre de caracteres : 426827
+Longueur moyenne d'un mot : 4.94
+Longueur moyenne d'une phrase : 17.03
+Phrase la plus longue (192 mots) : A peine les voyageurs purent-ils entrevoir le fort de Chunar à vingt milles au sud-est de Bénarès ancienne forteresse des rajahs du Béhar Ghazepour et ses importantes fabriques d'eau de rose le tombeau de Lord Cornwallis qui s'élève sur la rive gauche du Gange la ville fortifiée de Buxar Patna grande cité industrielle et commerçante où se tient le principal marché d'opium de l'Inde Monghir ville plus qu'européenne anglaise comme Manchester ou Birmingham renommée pour ses fonderies de fer ses fabriques de taillanderie et d'armes blanches et dont les hautes cheminées encrassaient d'une fumée noire le ciel de Brahma -- un véritable coup de poing dans le pays du rêve Puis la nuit vint et au milieu des hurlements des tigres des ours des loups qui fuyaient devant la locomotive le train passa à toute vitesse et on n'aperçut plus rien des merveilles du Bengale ni Golgonde ni Gour en ruine ni Mourshedabad qui fut autrefois capitale ni Burdwan ni Hougly ni Chandernagor ce point français du territoire indien sur lequel Passepartout eût été fier de voir flotter le drapeau de sa patrie Enfin à sept heures du matin Calcutta était atteint 

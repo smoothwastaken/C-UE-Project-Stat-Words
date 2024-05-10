@@ -1,0 +1,3 @@
+Ceci est un petit texte de 2 phrases, 31 mots et 181 caractères.
+Le texte contient des accents et le fichier est encodé avec la norme
+internationale 8859-1, souvent appelée Latin-1.
